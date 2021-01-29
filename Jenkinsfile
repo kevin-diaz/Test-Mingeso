@@ -6,7 +6,10 @@ pipeline{
         stage("build"){
             steps{
                 echo 'Construyendo la aplicación ...'
-                sh 'npm install'
+                nodejs(nodeJSInstallationName: 'Node 6.x', configId: '<config-file-provider-id>') {
+                    sh 'npm config ls'
+                }
+                //sh 'npm install'
                 sh 'npm run dev'
             }
         }
