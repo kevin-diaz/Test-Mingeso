@@ -6,10 +6,13 @@ pipeline{
         stage("build"){
             steps{
                 echo 'Construyendo la aplicación ...'
-                sh 'npm install'
-                nodejs(nodeJSInstallationName: 'Node 10.19.0') {
-                    sh 'npm run dev'
-                } //Pluglin = NodeJs
+                nodejs(nodeJSInstallationName: 'Node 10.x', configId: '<config-file-provider-id>') {
+                    sh 'npm install'
+                //sh 'npm install'
+                //nodejs(nodeJSInstallationName: 'Node 10.19.0') {
+                //    sh 'npm run dev'
+                //} 
+                //Pluglin = NodeJs
             }
         }
 
