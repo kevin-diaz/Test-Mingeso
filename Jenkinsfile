@@ -6,7 +6,7 @@ pipeline{
         stage("build"){
             steps{
                 echo 'Construyendo la aplicación ...'
-                nodejs(nodeJSInstallationName: 'Node 10.19.0') {
+                nodejs(nodeJSInstallationName: 'NodeJs 10.19.0') {
                     sh 'npm run dev'
                 }
                 //sh 'npm install'
