@@ -30,7 +30,7 @@ pipeline{
         stage('deploy'){
             steps{
                echo 'Desplegando la aplicación ...'
-               sh 'npm run dev'
+               sh 'sudo npm run dev'
            }
         }        
     }
