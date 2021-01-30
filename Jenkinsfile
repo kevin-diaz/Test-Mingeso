@@ -20,6 +20,13 @@ pipeline{
             }
         }
         
+        stage('code test'){
+            steps{
+                echo 'Analizando el código'
+                sh 'npm run lint'
+            }
+        }
+        
         stage('deploy'){
             steps{
                 echo 'Desplegando la aplicación ...'
