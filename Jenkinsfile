@@ -6,7 +6,7 @@ pipeline{
         stage('build'){
             steps{
                 echo 'Construyendo la aplicación ...'
-                def varNode = tool 'JS'
+                //def varNode = tool 'JS'
                 sh 'npm install'
             }
         }
