@@ -7,8 +7,6 @@ pipeline{
             steps{
                 echo 'Construyendo la aplicación ...'
                 sh 'npm install'
-                //sh 'npm install -g express-api-cli'
-                
             }
         }
 
