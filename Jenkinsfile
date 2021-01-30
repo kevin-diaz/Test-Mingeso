@@ -29,6 +29,7 @@ pipeline{
         stage('deploy'){
             steps{
                 echo 'Desplegando la aplicación ...'
+                sh 'npm run dev'
             }
         }
 
