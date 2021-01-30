@@ -27,12 +27,12 @@ pipeline{
             }
         }
         
-        stage('deploy'){
-            steps{
-                echo 'Desplegando la aplicación ...'
-                sh 'npm run dev'
-            }
-        }
+        //stage('deploy'){
+         //   steps{
+          //      echo 'Desplegando la aplicación ...'
+          //      sh 'npm run dev'
+        //    }
+      //  }
         
         stage('Deliver') { 
             steps {
