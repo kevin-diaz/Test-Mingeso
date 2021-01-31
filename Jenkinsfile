@@ -4,6 +4,11 @@ pipeline{
     tools{
         nodejs 'NJ'
     }
+    //Se definen las variables de entorno.
+    environment {
+        //Nombre del repositorio
+        DOCKER_IMAGE_NAME = "kevindiaz/nodejs-aplication"
+    }
     stages{
         // Primera estapa: construcción; se descaragan las dependencias.
         stage('build'){
@@ -27,11 +32,26 @@ pipeline{
             }
         }
         
-        stage('deploy'){
-            steps{
-               echo 'Desplegando la aplicación ...'
-               sh 'sudo npm run dev'
-           }
-        }        
+        //stage('deploy'){
+        //    steps{
+        //       echo 'Desplegando la aplicación ...'
+        //       sh 'sudo npm run dev'
+        //   }
+        //}
+        
+        // Cuarta etapa: dockerizamiento; se dockeriza la aplicación.
+        stage('dockerizer'){
+            when{
+                branch 'master'
+            }
+            steps {
+                script {
+                    app = docker.build(DOCKER_IMAGE_NAME)
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                    app.push("${env.BUILD_NUMBER}")
+                    app.push("latest")
+                }
+            }
+        }      
     }
 }
