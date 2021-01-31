@@ -3,7 +3,7 @@ pipeline{
     //Se carga nodejs paa poder ejecutar los comandos npm.
     tools{
         nodejs 'NJ'
-        DockerTool 'DKR'
+        dockerTool 'DKR'
     }
     //Se definen las variables de entorno.
     environment {
@@ -41,19 +41,23 @@ pipeline{
         //}
         
         // Cuarta etapa: dockerizamiento; se dockeriza la aplicación.
-        stage('dockerizer'){
-            //when{
-            //    branch 'master'
-            //}
+        stage('Build Docker Image') {
             steps {
                 script {
                     app = docker.build(DOCKER_IMAGE_NAME)
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login'){
+                }
+            }
+        }
+        
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
                     }
                 }
             }
-        }      
+        }
     }
 }
