@@ -3,7 +3,7 @@ pipeline{
     //Se carga nodejs paa poder ejecutar los comandos npm.
     tools{
         nodejs 'NJ'
-        dockerTool 'DKR'
+        dockerTool 'docker'
     }
     //Se definen las variables de entorno.
     environment {
