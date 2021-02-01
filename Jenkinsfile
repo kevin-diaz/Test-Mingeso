@@ -1,6 +1,6 @@
 pipeline{
     agent any
-    //Se carga nodejs paa poder ejecutar los comandos npm.
+    //Se carga nodejs paa poder ejecutar los comandos npm ().
     tools{
         nodejs 'NJ'
         dockerTool 'docker'
