@@ -8,6 +8,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 1200/api/v1
+EXPOSE 1200/tcp
 
 CMD ["npm","run","dev"]
