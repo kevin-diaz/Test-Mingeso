@@ -8,7 +8,7 @@ pipeline{
     //Se definen las variables de entorno.
     environment {
         //Nombre del repositorio
-        DOCKER_IMAGE_NAME = "kevindiaz/nodejs-aplication"
+        DOCKER_IMAGE_NAME = "kevinespinozav/nodejs-aplication"
     }
     stages{
         // Primera estapa: construcción; se descaragan las dependencias.
@@ -33,14 +33,7 @@ pipeline{
             }
         }
         
-        //stage('deploy'){
-        //    steps{
-        //       echo 'Desplegando la aplicación ...'
-        //       sh 'sudo npm run dev'
-        //   }
-        //}
-        
-        // Cuarta etapa: dockerizamiento; se dockeriza la aplicación.
+        // Cuarta etapa: dockerizamiento; se construye la imagen del docker de la aplicación.
         stage('Build Docker Image') {
             steps {
                 script {
@@ -49,6 +42,7 @@ pipeline{
             }
         }
         
+        // Quinta etapa: pushear; se sube al repositorio de dockerhub el dockerfile.
         stage('Push Docker Image') {
             steps {
                 script {
@@ -57,6 +51,18 @@ pipeline{
                         app.push("latest")
                     }
                 }
+            }
+        }
+        
+        // Sexta etapa: se sdespliega la aplicación en un cluster de kubernetes.
+        stage('Deploy Kubernetes') {
+            steps {
+                milestone(1)
+                kubernetesDeploy(
+                    kubeconfigId: 'kubeconfig',
+                    configs: 'deploy.yaml',
+                    enableConfigSubstitution: true
+                )
             }
         }
     }
